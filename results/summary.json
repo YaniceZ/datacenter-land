@@ -1,0 +1,215 @@
+{
+  "osm_sites": 2378,
+  "sites_by_status": {
+    "existing": 1745,
+    "small or unclear": 230,
+    "new": 215,
+    "pipeline": 148,
+    "no data": 40
+  },
+  "crypto_flagged": 11,
+  "new_sites_2018_2023": {
+    "sites": 215,
+    "hectares": 1376.1,
+    "share": {
+      "crops": 0.418,
+      "trees": 0.234,
+      "rangeland": 0.305,
+      "bare": 0.042,
+      "water": 0.001,
+      "flooded_vegetation": 0.001
+    },
+    "by_year": [
+      {
+        "fp_first_built_year": 2018,
+        "sites": 23,
+        "ha": 124.3
+      },
+      {
+        "fp_first_built_year": 2019,
+        "sites": 30,
+        "ha": 252.4
+      },
+      {
+        "fp_first_built_year": 2020,
+        "sites": 30,
+        "ha": 163.3
+      },
+      {
+        "fp_first_built_year": 2021,
+        "sites": 28,
+        "ha": 262.1
+      },
+      {
+        "fp_first_built_year": 2022,
+        "sites": 49,
+        "ha": 261.9
+      },
+      {
+        "fp_first_built_year": 2023,
+        "sites": 44,
+        "ha": 180.7
+      }
+    ],
+    "by_continent": {
+      "Africa": {
+        "sites": 4,
+        "ha": 6.8
+      },
+      "Asia": {
+        "sites": 31,
+        "ha": 153.8
+      },
+      "Europe": {
+        "sites": 34,
+        "ha": 150.7
+      },
+      "North America": {
+        "sites": 141,
+        "ha": 1050.6
+      },
+      "Oceania": {
+        "sites": 3,
+        "ha": 5.3
+      },
+      "South America": {
+        "sites": 2,
+        "ha": 8.9
+      }
+    },
+    "us_share_of_hectares": 0.73
+  },
+  "rural_share": {
+    "existing": 0.236,
+    "new": 0.791,
+    "no data": 0.4,
+    "pipeline": 0.676,
+    "small or unclear": 0.409
+  },
+  "median_area_ha": {
+    "existing": 0.44,
+    "new": 3.69,
+    "no data": 0.0,
+    "pipeline": 3.01,
+    "small or unclear": 0.27
+  },
+  "median_population_5km": {
+    "existing": 121570,
+    "new": 29330,
+    "no data": 52694,
+    "pipeline": 27837,
+    "small or unclear": 96055
+  },
+  "selection_vs_5km_ring": {
+    "new (2017 land cover)": {
+      "sites": 209,
+      "crops": {
+        "footprint_mean": 0.418,
+        "ring_mean": 0.377,
+        "median_difference": -0.009,
+        "wilcoxon_p": 0.27
+      },
+      "trees": {
+        "footprint_mean": 0.21,
+        "ring_mean": 0.296,
+        "median_difference": -0.016,
+        "wilcoxon_p": 5.83e-08
+      },
+      "rangeland": {
+        "footprint_mean": 0.311,
+        "ring_mean": 0.294,
+        "median_difference": -0.067,
+        "wilcoxon_p": 0.459
+      }
+    },
+    "pipeline (2023 land cover)": {
+      "sites": 100,
+      "crops": {
+        "footprint_mean": 0.343,
+        "ring_mean": 0.336,
+        "median_difference": -0.008,
+        "wilcoxon_p": 0.83
+      },
+      "trees": {
+        "footprint_mean": 0.171,
+        "ring_mean": 0.291,
+        "median_difference": -0.064,
+        "wilcoxon_p": 1.19e-07
+      },
+      "rangeland": {
+        "footprint_mean": 0.416,
+        "ring_mean": 0.317,
+        "median_difference": -0.008,
+        "wilcoxon_p": 0.125
+      }
+    }
+  },
+  "validation": {
+    "USA": {
+      "sites": 182,
+      "hectares": 1247.0,
+      "overall_agreement": 0.669,
+      "global_product_share": {
+        "crops": 0.339,
+        "trees": 0.259,
+        "rangeland": 0.311,
+        "wetland": 0.001,
+        "water": 0.001,
+        "bare": 0.09,
+        "built": 0.0
+      },
+      "reference_share": {
+        "crops": 0.369,
+        "trees": 0.271,
+        "rangeland": 0.249,
+        "wetland": 0.007,
+        "water": 0.002,
+        "bare": 0.016,
+        "built": 0.086
+      }
+    },
+    "CAN": {
+      "sites": 5,
+      "hectares": 4.7,
+      "overall_agreement": 0.669,
+      "global_product_share": {
+        "crops": 0.496,
+        "trees": 0.357,
+        "rangeland": 0.148,
+        "wetland": 0.0,
+        "water": 0.0,
+        "bare": 0.0,
+        "built": 0.0
+      },
+      "reference_share": {
+        "crops": 0.732,
+        "trees": 0.173,
+        "rangeland": 0.0,
+        "wetland": 0.0,
+        "water": 0.0,
+        "bare": 0.017,
+        "built": 0.078
+      }
+    }
+  },
+  "pipeline": {
+    "sites": 148,
+    "area_ha": 1966.3,
+    "area_ha_without_largest": 1263.4,
+    "largest": {
+      "name": "Stargate UAE Abu Dhabi",
+      "country": "United Arab Emirates",
+      "area_ha": 702.8722265010944
+    },
+    "sentinel2_2023_vs_2026": {
+      "checked": 146,
+      "failed": 2,
+      "control_sites": 59,
+      "control_changed_share_median": 0.172,
+      "control_changed_share_p90": 0.719,
+      "started_sites": 89,
+      "started_area_ha": 653.7,
+      "cleared_vegetation_ha": 336.4
+    }
+  }
+}

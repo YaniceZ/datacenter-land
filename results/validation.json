@@ -1,0 +1,48 @@
+{
+  "USA": {
+    "sites": 182,
+    "hectares": 1247.0,
+    "overall_agreement": 0.669,
+    "global_product_share": {
+      "crops": 0.339,
+      "trees": 0.259,
+      "rangeland": 0.311,
+      "wetland": 0.001,
+      "water": 0.001,
+      "bare": 0.09,
+      "built": 0.0
+    },
+    "reference_share": {
+      "crops": 0.369,
+      "trees": 0.271,
+      "rangeland": 0.249,
+      "wetland": 0.007,
+      "water": 0.002,
+      "bare": 0.016,
+      "built": 0.086
+    }
+  },
+  "CAN": {
+    "sites": 5,
+    "hectares": 4.7,
+    "overall_agreement": 0.669,
+    "global_product_share": {
+      "crops": 0.496,
+      "trees": 0.357,
+      "rangeland": 0.148,
+      "wetland": 0.0,
+      "water": 0.0,
+      "bare": 0.0,
+      "built": 0.0
+    },
+    "reference_share": {
+      "crops": 0.732,
+      "trees": 0.173,
+      "rangeland": 0.0,
+      "wetland": 0.0,
+      "water": 0.0,
+      "bare": 0.017,
+      "built": 0.078
+    }
+  }
+}
