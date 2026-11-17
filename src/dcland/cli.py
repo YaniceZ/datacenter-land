@@ -90,10 +90,11 @@ def _sentinel(workers):
 
 
 def _summary(workers):
-    from . import analysis
+    from . import analysis, figures, stats
     analysis.summarise(DATA, RESULTS)
-    analysis.make_figures(DATA, RESULTS, DOCS)
+    stats.run(DATA, RESULTS)
     analysis.export_sites(DATA, RESULTS)
+    figures.make_all(DATA, RESULTS, DOCS / "figures", DATA / "raw" / "ne" / "ne_50m_admin_0_countries.shp")
 
 
 def _map(workers):

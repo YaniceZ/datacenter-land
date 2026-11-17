@@ -125,3 +125,23 @@ def check_all(sites: gpd.GeoDataFrame, workers: int = 8) -> pd.DataFrame:
             except Exception as exc:  # noqa: BLE001
                 rows.append({"site_id": futures[future], "error": str(exc)[:200]})
     return pd.DataFrame(rows).sort_values("site_id").reset_index(drop=True)
+
+
+def rgb_chip(lon: float, lat: float, year: int, half_width_m: float = 1500.0, tile: str | None = None):
+    """True-colour chip from the clearest scene of a season. Returns (rgb array 0-1, bounds, epsg, scene id)."""
+    catalog = pystac_client.Client.open(STAC_URL)
+    items = _items(catalog, lon, lat, year, tile)
+    if not items:
+        raise RuntimeError("no clear scenes")
+    item = items[0]
+    epsg = item.properties.get("proj:epsg") or int(str(item.properties["proj:code"]).split(":")[1])
+    x, y = gpd.GeoSeries(gpd.points_from_xy([lon], [lat]), crs="EPSG:4326").to_crs(epsg).iloc[0].coords[0]
+    bounds = (x - half_width_m, y - half_width_m, x + half_width_m, y + half_width_m)
+    bands = []
+    for name in ("B04", "B03", "B02"):
+        with rasterio.open(pc.sign(item.assets[name].href)) as src:
+            win = from_bounds(*bounds, src.transform).round_offsets().round_lengths()
+            bands.append(src.read(1, window=win, boundless=True, fill_value=0).astype("float32"))
+    offset = 1000.0 if item.datetime.year >= 2022 else 0.0
+    rgb = np.clip((np.dstack(bands) - offset) / 10000.0, 0, None)
+    return rgb, bounds, epsg, item.id

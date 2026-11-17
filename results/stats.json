@@ -1,0 +1,361 @@
+{
+  "bootstrap_replicates": 5000,
+  "conversion_new_global": {
+    "sites": 215,
+    "hectares": 1376.1,
+    "crops": {
+      "share": 0.418,
+      "ci95": [
+        0.33,
+        0.507
+      ]
+    },
+    "trees": {
+      "share": 0.234,
+      "ci95": [
+        0.147,
+        0.34
+      ]
+    },
+    "rangeland": {
+      "share": 0.305,
+      "ci95": [
+        0.23,
+        0.379
+      ]
+    },
+    "bare": {
+      "share": 0.042,
+      "ci95": [
+        0.019,
+        0.071
+      ]
+    }
+  },
+  "conversion_new_usa": {
+    "sites": 131,
+    "hectares": 1004.5,
+    "crops": {
+      "share": 0.379,
+      "ci95": [
+        0.281,
+        0.483
+      ]
+    },
+    "trees": {
+      "share": 0.272,
+      "ci95": [
+        0.156,
+        0.406
+      ]
+    },
+    "rangeland": {
+      "share": 0.302,
+      "ci95": [
+        0.205,
+        0.396
+      ]
+    },
+    "bare": {
+      "share": 0.046,
+      "ci95": [
+        0.017,
+        0.085
+      ]
+    }
+  },
+  "conversion_new_outside_usa": {
+    "sites": 84,
+    "hectares": 371.6,
+    "crops": {
+      "share": 0.524,
+      "ci95": [
+        0.377,
+        0.664
+      ]
+    },
+    "trees": {
+      "share": 0.133,
+      "ci95": [
+        0.055,
+        0.232
+      ]
+    },
+    "rangeland": {
+      "share": 0.312,
+      "ci95": [
+        0.193,
+        0.443
+      ]
+    },
+    "bare": {
+      "share": 0.03,
+      "ci95": [
+        0.008,
+        0.062
+      ]
+    }
+  },
+  "rural_share": {
+    "existing": {
+      "share": 0.236,
+      "ci95": [
+        0.217,
+        0.256
+      ],
+      "n": 1745
+    },
+    "new": {
+      "share": 0.791,
+      "ci95": [
+        0.735,
+        0.847
+      ],
+      "n": 215
+    },
+    "pipeline": {
+      "share": 0.676,
+      "ci95": [
+        0.595,
+        0.75
+      ],
+      "n": 148
+    }
+  },
+  "population_5km": {
+    "existing": {
+      "median": 121570.0,
+      "ci95": [
+        114210.875,
+        131319.0
+      ],
+      "n": 1745
+    },
+    "new": {
+      "median": 29330.0,
+      "ci95": [
+        22162.0,
+        40569.0
+      ],
+      "n": 215
+    },
+    "pipeline": {
+      "median": 27837.5,
+      "ci95": [
+        20961.0,
+        43415.0
+      ],
+      "n": 148
+    }
+  },
+  "area_ha": {
+    "existing": {
+      "median": 0.44,
+      "ci95": [
+        0.402,
+        0.477
+      ],
+      "n": 1745
+    },
+    "new": {
+      "median": 3.69,
+      "ci95": [
+        2.975,
+        4.692
+      ],
+      "n": 215
+    },
+    "pipeline": {
+      "median": 3.01,
+      "ci95": [
+        2.693,
+        3.756
+      ],
+      "n": 148
+    }
+  },
+  "selection_new": {
+    "sites": 209,
+    "crops": {
+      "footprint_mean": 0.418,
+      "ring_mean": 0.377,
+      "mean_difference": 0.041,
+      "mean_difference_ci95": [
+        -0.002,
+        0.085
+      ],
+      "wilcoxon_p": 0.27,
+      "pooled_difference": 0.012,
+      "pooled_difference_ci95": [
+        -0.086,
+        0.109
+      ]
+    },
+    "trees": {
+      "footprint_mean": 0.21,
+      "ring_mean": 0.296,
+      "mean_difference": -0.085,
+      "mean_difference_ci95": [
+        -0.124,
+        -0.047
+      ],
+      "wilcoxon_p": 5.8e-08,
+      "pooled_difference": -0.032,
+      "pooled_difference_ci95": [
+        -0.121,
+        0.077
+      ]
+    },
+    "rangeland": {
+      "footprint_mean": 0.311,
+      "ring_mean": 0.294,
+      "mean_difference": 0.017,
+      "mean_difference_ci95": [
+        -0.031,
+        0.066
+      ],
+      "wilcoxon_p": 0.46,
+      "pooled_difference": 0.003,
+      "pooled_difference_ci95": [
+        -0.08,
+        0.09
+      ]
+    }
+  },
+  "selection_pipeline": {
+    "sites": 100,
+    "crops": {
+      "footprint_mean": 0.343,
+      "ring_mean": 0.336,
+      "mean_difference": 0.006,
+      "mean_difference_ci95": [
+        -0.058,
+        0.073
+      ],
+      "wilcoxon_p": 0.83,
+      "pooled_difference": -0.118,
+      "pooled_difference_ci95": [
+        -0.266,
+        0.197
+      ]
+    },
+    "trees": {
+      "footprint_mean": 0.171,
+      "ring_mean": 0.291,
+      "mean_difference": -0.119,
+      "mean_difference_ci95": [
+        -0.164,
+        -0.075
+      ],
+      "wilcoxon_p": 1.2e-07,
+      "pooled_difference": -0.118,
+      "pooled_difference_ci95": [
+        -0.192,
+        0.043
+      ]
+    },
+    "rangeland": {
+      "footprint_mean": 0.416,
+      "ring_mean": 0.317,
+      "mean_difference": 0.099,
+      "mean_difference_ci95": [
+        0.019,
+        0.176
+      ],
+      "wilcoxon_p": 0.13,
+      "pooled_difference": -0.126,
+      "pooled_difference_ci95": [
+        -0.234,
+        0.102
+      ]
+    }
+  },
+  "sensitivity": [
+    {
+      "variant": "Main (built share 25%)",
+      "new_sites": 215,
+      "converted_ha": 1376.1,
+      "cropland_share": 0.418,
+      "trees_share": 0.234,
+      "new_rural_share": 0.791,
+      "pre2017_rural_share": 0.236
+    },
+    {
+      "variant": "Built share threshold 10%",
+      "new_sites": 209,
+      "converted_ha": 1310.5,
+      "cropland_share": 0.445,
+      "trees_share": 0.228,
+      "new_rural_share": 0.794,
+      "pre2017_rural_share": 0.243
+    },
+    {
+      "variant": "Built share threshold 50%",
+      "new_sites": 230,
+      "converted_ha": 1380.1,
+      "cropland_share": 0.39,
+      "trees_share": 0.227,
+      "new_rural_share": 0.761,
+      "pre2017_rural_share": 0.227
+    },
+    {
+      "variant": "Excluding crypto-flagged sites",
+      "new_sites": 212,
+      "converted_ha": 1339.2,
+      "cropland_share": 0.428,
+      "trees_share": 0.228,
+      "new_rural_share": 0.788,
+      "pre2017_rural_share": 0.235
+    },
+    {
+      "variant": "Excluding the United States",
+      "new_sites": 84,
+      "converted_ha": 371.6,
+      "cropland_share": 0.524,
+      "trees_share": 0.133,
+      "new_rural_share": 0.667,
+      "pre2017_rural_share": 0.159
+    },
+    {
+      "variant": "Excluding footprints over 50 ha",
+      "new_sites": 208,
+      "converted_ha": 1031.6,
+      "cropland_share": 0.426,
+      "trees_share": 0.21,
+      "new_rural_share": 0.784,
+      "pre2017_rural_share": 0.234
+    },
+    {
+      "variant": "Site-weighted (mean of per-site shares)",
+      "new_sites": 215,
+      "converted_ha": 1376.1,
+      "cropland_share": 0.428,
+      "trees_share": 0.205,
+      "new_rural_share": null,
+      "pre2017_rural_share": null
+    }
+  ],
+  "pipeline_thresholds": [
+    {
+      "control_quantile": 0.8,
+      "threshold": 0.462,
+      "started_sites": 107,
+      "of": 146,
+      "started_area_ha": 918.8
+    },
+    {
+      "control_quantile": 0.9,
+      "threshold": 0.719,
+      "started_sites": 89,
+      "of": 146,
+      "started_area_ha": 653.7
+    },
+    {
+      "control_quantile": 0.95,
+      "threshold": 0.914,
+      "started_sites": 76,
+      "of": 146,
+      "started_area_ha": 577.1
+    }
+  ]
+}

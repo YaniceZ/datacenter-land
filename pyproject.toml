@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "datacenter-land"
-version = "0.1.0"
+version = "0.2.0"
 description = "What land did the data center boom take, and who lives next to it? A global open-data analysis."
 readme = "README.md"
 requires-python = ">=3.10"

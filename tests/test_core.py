@@ -2,6 +2,7 @@
 
 import geopandas as gpd
 import numpy as np
+import pandas as pd
 from shapely.geometry import Polygon
 
 from dcland import classify, context, landcover, osm, validate
@@ -106,3 +107,26 @@ def test_season_by_hemisphere():
     assert sentinel.season(2026, 45).startswith("2026-06")
     assert sentinel.season(2026, -33).startswith("2025-12")
     assert sentinel.season(2026, 1) == "2026-01-01/2026-12-31"
+
+
+def test_bootstrap_ci_contains_point_estimate():
+    from dcland import stats
+    df = pd.DataFrame({
+        "fp_conv_crops_ha": [5.0, 1.0, 0.0, 3.0],
+        "fp_conv_trees_ha": [0.0, 2.0, 4.0, 1.0],
+        "fp_conv_rangeland_ha": [1.0, 1.0, 1.0, 1.0],
+        "fp_conv_bare_ha": [0.0, 0.0, 1.0, 0.0],
+    })
+    df["fp_conv_total_ha"] = df.sum(axis=1)
+    out = stats.conversion_shares(df)
+    assert out["crops"]["share"] == round(9 / 21, 3)
+    lo, hi = out["crops"]["ci95"]
+    assert lo <= out["crops"]["share"] <= hi
+
+
+def test_relabel_restores_threshold():
+    from dcland import stats
+    df = pd.DataFrame({"fp_built_2017": [0.2], "fp_built_2023": [0.9], "fp_conv_total_ha": [3.0], "area_ha": [4.0]})
+    assert stats.relabel(df, 0.10).iloc[0] == "existing"
+    assert stats.relabel(df, 0.25).iloc[0] == "new"
+    assert classify.BUILT_SHARE == 0.25
