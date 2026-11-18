@@ -1,6 +1,6 @@
 # Data center expansion has moved onto rural land
 
-[![tests](https://github.com/YaniceZ/datacenter-land/actions/workflows/tests.yml/badge.svg)](https://github.com/YaniceZ/datacenter-land/actions/workflows/tests.yml)
+[![tests](https://github.com/YaniceZ/datacenter-land/actions/workflows/tests.yml/badge.svg)](https://github.com/YaniceZ/datacenter-land/actions/workflows/tests.yml) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24331630.svg)](https://doi.org/10.5281/zenodo.24331630)
 
 A global footprint analysis of data center campuses, 2017–2026, built only from open data.
 
@@ -67,4 +67,6 @@ The campus dataset in `results/` is derived from OpenStreetMap and released unde
 
 ## Citation
 
-Zeng, Y. Data center expansion has moved onto rural land: a global footprint analysis, 2017–2026. Preprint (2026). https://github.com/YaniceZ/datacenter-land
+Zeng, Y. (2026). Data center expansion has moved onto rural land: a global footprint analysis, 2017–2026 (code and campus dataset). Zenodo. https://doi.org/10.5281/zenodo.24331630
+
+This DOI always resolves to the latest version; each release also has its own DOI on Zenodo.

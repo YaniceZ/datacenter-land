@@ -76,11 +76,11 @@ This study has five main limitations. First, OpenStreetMap completeness varies w
 
 ## Data availability
 
-The campus dataset (GeoJSON and CSV, one row per campus with footprint, status, annual built share, converted hectares by class, settlement type, population and Sentinel-2 change measures) is at https://github.com/YaniceZ/datacenter-land under the Open Database License, as it is derived from OpenStreetMap. Input data are openly available from OpenStreetMap, the Microsoft Planetary Computer (Esri/Impact Observatory land cover, USDA Cropland Data Layer, NRCan land cover, Sentinel-2 L2A), the European Commission Joint Research Centre (GHSL) and Natural Earth.
+The campus dataset (GeoJSON and CSV, one row per campus with footprint, status, annual built share, converted hectares by class, settlement type, population and Sentinel-2 change measures) is archived on Zenodo (https://doi.org/10.5281/zenodo.24331630) and available at https://github.com/YaniceZ/datacenter-land under the Open Database License, as it is derived from OpenStreetMap. Input data are openly available from OpenStreetMap, the Microsoft Planetary Computer (Esri/Impact Observatory land cover, USDA Cropland Data Layer, NRCan land cover, Sentinel-2 L2A), the European Commission Joint Research Centre (GHSL) and Natural Earth.
 
 ## Code availability
 
-All code is at https://github.com/YaniceZ/datacenter-land (MIT licence). `dcland all` reproduces every number and figure from public inputs.
+All code is at https://github.com/YaniceZ/datacenter-land (MIT licence) and archived with the dataset at https://doi.org/10.5281/zenodo.24331630. `dcland all` reproduces every number and figure from public inputs.
 
 ## Acknowledgements
 

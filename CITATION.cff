@@ -4,8 +4,16 @@ title: "Data center expansion has moved onto rural land: a global footprint anal
 authors:
   - family-names: Zeng
     given-names: Yanice
-version: 0.2.0
-date-released: 2026-11-17
+version: 1.0.0
+date-released: 2026-11-18
+doi: 10.5281/zenodo.24331630
 license: MIT
 repository-code: "https://github.com/YaniceZ/datacenter-land"
 type: software
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24331630
+    description: Concept DOI, all versions
+  - type: url
+    value: https://yanicez.github.io/datacenter-land/
+    description: Project page
