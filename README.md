@@ -4,6 +4,8 @@
 
 A global footprint analysis of data center campuses, 2017–2026, built only from open data.
 
+**Project page and interactive map:** https://yanicez.github.io/datacenter-land/
+
 **Manuscript:** [paper/manuscript.md](paper/manuscript.md) (preprint, not peer reviewed) · **Dataset:** [results/datacenter_sites.geojson](results/datacenter_sites.geojson) · **Figures:** [docs/figures](docs/figures) (vector PDF and PNG)
 
 ## Summary
@@ -34,8 +36,9 @@ All headline results hold under alternative built-share thresholds (10%, 50%), a
 | `src/dcland/sentinel.py` | Sentinel-2 change 2023–2026; true-colour image chips |
 | `src/dcland/stats.py` | Site bootstrap intervals, paired tests, sensitivity analyses |
 | `src/dcland/figures.py` | Figures 1–5 (183 mm, Arial 7 pt) |
+| `src/dcland/website.py` | Compact campus and footprint files for the project page |
 | `results/` | `summary.json`, `stats.json`, validation tables, the campus dataset |
-| `docs/map.html` | Interactive map of all campuses (download and open in a browser) |
+| `docs/` | Project page served by GitHub Pages: `index.html`, map data in `docs/data/`, figures |
 
 ## Reproduce
 

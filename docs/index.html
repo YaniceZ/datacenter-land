@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Center Land</title>
+<meta name="description" content="What land did the data center boom take? A global open-data analysis of 2,378 data center campuses, 2017–2026.">
+<meta property="og:title" content="Data center expansion has moved onto rural land">
+<meta property="og:description" content="2,378 campuses in 101 countries. New campuses replaced 1,376 ha from 2018 to 2023, 42% of it cropland, and 79% of them are on rural land.">
+<meta property="og:image" content="https://yanicez.github.io/datacenter-land/img/before-after.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #fcfcfb;
+  --surface: #ffffff;
+  --ink: #1a1a19;
+  --ink-2: #52514e;
+  --ink-3: #75736e;
+  --rule: #e4e2dc;
+  --accent: #2a78d6;
+  --existing: #9a9893;
+  --new: #eb6834;
+  --pipeline: #2a78d6;
+  --other: #cfcdc6;
+  --chip: #f2f1ed;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #141413;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --ink-3: #9a988f;
+    --rule: #34332f;
+    --accent: #6aa5ee;
+    --existing: #8a8984;
+    --new: #d95926;
+    --pipeline: #3987e5;
+    --other: #4a4945;
+    --chip: #242422;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141413; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #9a988f; --rule: #34332f;
+  --accent: #6aa5ee; --existing: #8a8984; --new: #d95926; --pipeline: #3987e5; --other: #4a4945; --chip: #242422;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+.prose { max-width: 720px; }
+header { padding: 56px 0 28px; }
+.eyebrow { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.12; margin: 0 0 16px; letter-spacing: -.01em; max-width: 820px; }
+.dek { font-size: 19px; color: var(--ink-2); margin: 0 0 20px; max-width: 720px; }
+.byline { font-size: 15px; color: var(--ink-3); margin: 0; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.links a { font-size: 14px; text-decoration: none; padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink); background: var(--surface); }
+.links a:hover { border-color: var(--ink-3); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin: 8px 0 40px; }
+.stat { background: var(--surface); padding: 16px 18px; }
+.stat b { display: block; font-size: 28px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 14px; color: var(--ink-2); }
+h2 { font-size: 24px; line-height: 1.25; margin: 48px 0 12px; }
+.mapbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; }
+.toggle { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); cursor: pointer; user-select: none; color: var(--ink); }
+.toggle input { position: absolute; opacity: 0; pointer-events: none; }
+.toggle .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.toggle:has(input:not(:checked)) { color: var(--ink-3); background: transparent; }
+.toggle:has(input:not(:checked)) .dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--c); }
+.toggle:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.search { flex: 1 1 200px; min-width: 0; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); }
+#map { height: min(68vh, 620px); min-height: 380px; border-radius: 10px; border: 1px solid var(--rule); background: var(--chip); }
+.leaflet-tile-pane { filter: grayscale(.85) contrast(.95); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .leaflet-tile-pane { filter: grayscale(1) invert(1) brightness(.9) contrast(.85); } }
+:root[data-theme="dark"] .leaflet-tile-pane { filter: grayscale(1) invert(1) brightness(.9) contrast(.85); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--surface); color: var(--ink); }
+.leaflet-popup-content { font-size: 13.5px; line-height: 1.5; margin: 12px 14px; }
+.leaflet-popup-content b.t { font-size: 15px; display: block; margin-bottom: 2px; }
+.leaflet-popup-content .m { color: var(--ink-2); }
+.leaflet-popup-content table { border-collapse: collapse; margin-top: 6px; }
+.leaflet-popup-content td { padding: 1px 10px 1px 0; vertical-align: top; }
+.leaflet-popup-content td:first-child { color: var(--ink-3); }
+.leaflet-container a.leaflet-popup-close-button { color: var(--ink-3); }
+.note { font-size: 14px; color: var(--ink-3); margin: 8px 0 0; }
+figure { margin: 0; }
+figure img, .finding img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--rule); background: #fff; }
+figcaption { font-size: 14px; color: var(--ink-2); margin-top: 8px; }
+.findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 32px; margin-top: 8px; }
+.finding h3 { font-size: 18px; margin: 12px 0 6px; line-height: 1.3; }
+.finding p { margin: 0; font-size: 16px; color: var(--ink-2); }
+ul.limits { padding-left: 20px; color: var(--ink-2); }
+ul.limits li { margin-bottom: 6px; }
+pre.cite { white-space: pre-wrap; font-size: 14px; background: var(--chip); border-radius: 8px; padding: 14px 16px; color: var(--ink); }
+footer { border-top: 1px solid var(--rule); margin-top: 56px; padding: 20px 0 40px; font-size: 14px; color: var(--ink-3); }
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  header { padding-top: 36px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat b { font-size: 24px; }
+  .findings { grid-template-columns: minmax(0, 1fr); }
+  #map { height: 62vh; }
+}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="eyebrow">Open data &middot; 101 countries &middot; 2017&ndash;2026</p>
+  <h1>Data center expansion has moved onto rural land</h1>
+  <p class="dek">Data centers have become a land use fight, but nobody had measured what land they take. This study maps every data center campus in OpenStreetMap against a decade of satellite land cover.</p>
+  <p class="byline">Yanice Zeng &middot; Preprint, November 2026 &middot; not peer reviewed</p>
+  <nav class="links" aria-label="Project links">
+    <a href="https://github.com/YaniceZ/datacenter-land/blob/main/paper/manuscript.md">Read the preprint</a>
+    <a href="https://github.com/YaniceZ/datacenter-land/tree/main/results">Download the dataset</a>
+    <a href="https://github.com/YaniceZ/datacenter-land">Code on GitHub</a>
+    <a href="https://github.com/YaniceZ/datacenter-land/tree/main/docs/figures">Figures (PDF)</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="stats" aria-label="Key numbers">
+    <div class="stat"><b>1,376 ha</b><span>converted by 215 campuses built in 2018&ndash;2023</span></div>
+    <div class="stat"><b>42%</b><span>of it was cropland (95% CI 33&ndash;51%)</span></div>
+    <div class="stat"><b>79%</b><span>of new campuses are on rural land, against 24% of older ones</span></div>
+    <div class="stat"><b>89 of 146</b><span>campuses unbuilt in 2023 show construction by 2026</span></div>
+  </section>
+
+  <h2>Every mapped campus</h2>
+  <div class="mapbar" role="group" aria-label="Filter campuses">
+    <label class="toggle" style="--c: var(--new)"><input type="checkbox" data-s="1" checked><span class="dot"></span>Built 2018&ndash;2023 <span data-count="1"></span></label>
+    <label class="toggle" style="--c: var(--pipeline)"><input type="checkbox" data-s="2" checked><span class="dot"></span>Unbuilt in 2023 <span data-count="2"></span></label>
+    <label class="toggle" style="--c: var(--existing)"><input type="checkbox" data-s="0" checked><span class="dot"></span>Built before 2017 <span data-count="0"></span></label>
+    <label class="toggle" style="--c: var(--other)"><input type="checkbox" data-s="3"><span class="dot"></span>Too small to classify <span data-count="3"></span></label>
+    <input class="search" type="search" placeholder="Filter by name, operator or country" aria-label="Filter by name, operator or country">
+  </div>
+  <div id="map" role="region" aria-label="Map of data center campuses"></div>
+  <p class="note">Circle size follows footprint area. Zoom in to see campus outlines; click a campus for its land history. Basemap &copy; OpenStreetMap contributors.</p>
+
+  <h2>Fields in 2023, campuses in 2026</h2>
+  <figure>
+    <img src="img/before-after.jpg" width="1156" height="816" alt="Six Sentinel-2 images: three data center sites in Indiana, England and Malaysia, each shown in 2023 before construction and in 2026 after, with the campus outline in white" loading="lazy">
+    <figcaption>Three campuses that were still unbuilt in 2023, seen by Sentinel-2 before and after. Outlines from OpenStreetMap. Contains modified Copernicus Sentinel data 2023 and 2026.</figcaption>
+  </figure>
+
+  <h2>What the analysis found</h2>
+  <div class="findings">
+    <div class="finding">
+      <a href="figures/fig2_land_before.pdf"><img src="img/fig2_land_before.jpg" width="900" height="476" alt="Dot plot of the share of converted land by class with confidence intervals, and a matrix comparing the global land cover map with the USDA Cropland Data Layer" loading="lazy"></a>
+      <h3>Cropland is the largest single source</h3>
+      <p>Of the 1,376 ha converted, 42% was cropland, 31% grass and shrub, 23% trees. North America accounts for three quarters. At US campuses, the global land cover map and the USDA crop map agree on the cropland share within three points.</p>
+    </div>
+    <div class="finding">
+      <a href="figures/fig3_siting.pdf"><img src="img/fig3_siting.jpg" width="900" height="378" alt="Charts comparing settlement type, nearby population and footprint size for campuses built before 2017, in 2018 to 2023, and unbuilt in 2023" loading="lazy"></a>
+      <h3>Campuses have left the city</h3>
+      <p>Before 2017, 57% of campuses were in urban centres. Since then, 79% have gone to rural land. The median new campus is 8.4 times larger, with 29,000 people living within 5 km instead of 122,000.</p>
+    </div>
+    <div class="finding">
+      <a href="figures/fig4_selection.pdf"><img src="img/fig4_selection.jpg" width="900" height="381" alt="Scatter plots comparing land cover inside footprints with the surrounding 5 km, and a chart of the differences with confidence intervals" loading="lazy"></a>
+      <h3>The region decides, not the parcel</h3>
+      <p>New footprints hold no more cropland than the undeveloped land within 5 km (+4 points, 95% CI &minus;0.2 to +8.5), and less forest. Protecting farmland is a regional siting question; steering a campus to another field would change little.</p>
+    </div>
+    <div class="finding">
+      <a href="figures/fig1_global.pdf"><img src="img/fig1_global.jpg" width="900" height="668" alt="World map of data center campuses coloured by status, with bar charts of converted land by year and continent" loading="lazy"></a>
+      <h3>The public record is thin</h3>
+      <p>Most of Canada's 159 proposed hyperscale facilities are planned for Alberta, yet OpenStreetMap shows five Alberta data centers, none of them recent. No country publishes a register of campus footprints.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2>Limits</h2>
+    <ul class="limits">
+      <li>OpenStreetMap covers the US and western Europe well and China, India, Africa and South America poorly. Totals are for mapped campuses only.</li>
+      <li>Footprints are drawn by volunteers; some outline buildings, others whole parcels.</li>
+      <li>Annual 10 m land cover ends in 2023. After that, Sentinel-2 shows that land changed, not what it became.</li>
+      <li>Power plants, substations and transmission lines built for data centers are not counted, so these figures are a lower bound.</li>
+    </ul>
+
+    <h2>Cite</h2>
+    <pre class="cite">Zeng, Y. (2026). Data center expansion has moved onto rural land: a global footprint analysis, 2017–2026. Preprint. https://github.com/YaniceZ/datacenter-land</pre>
+    <p>The campus dataset is derived from OpenStreetMap and released under the <a href="https://opendatacommons.org/licenses/odbl/">ODbL</a>. Code is MIT. Land cover: Esri / Impact Observatory. Population and settlement: GHSL, European Commission JRC.</p>
+  </section>
+</main>
+
+<footer class="wrap">Data and code: <a href="https://github.com/YaniceZ/datacenter-land">github.com/YaniceZ/datacenter-land</a></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function () {
+  const LABEL = ["Built before 2017", "Built 2018–2023", "Unbuilt in 2023", "Too small to classify"];
+  const VAR = ["--existing", "--new", "--pipeline", "--other"];
+  const css = getComputedStyle(document.documentElement);
+  const color = s => css.getPropertyValue(VAR[s]).trim();
+  const fmt = (v, d = 1) => v == null ? "–" : Number(v).toLocaleString("en", { maximumFractionDigits: d });
+  const pct = v => v == null ? "–" : Math.round(v * 100) + "%";
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  const map = window.dcMap = L.map("map", { preferCanvas: true, worldCopyJump: true, minZoom: 1, zoomSnap: 0.5 }).setView([30, 5], innerWidth < 600 ? 1 : 2);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  const layers = [0, 1, 2, 3].map(() => L.layerGroup());
+  const all = [];
+  let footprints = null, fpLoading = false;
+
+  function popup(r) {
+    const name = r.name || "Unnamed campus";
+    const rows = [["Status", LABEL[r.status]], ["Footprint", fmt(r.area_ha) + " ha"]];
+    if (r.status === 1) {
+      rows.push(["Converted 2017–23", fmt(r.conv_ha) + " ha"]);
+      rows.push(["of which", `cropland ${fmt(r.crops_ha)}, trees ${fmt(r.trees_ha)}, rangeland ${fmt(r.rangeland_ha)} ha`]);
+      if (r.first_year) rows.push(["Mostly built by", r.first_year]);
+    }
+    if (r.status === 2 && r.changed != null) {
+      rows.push(["Surface changed 2023–26", pct(r.changed)]);
+      rows.push(["Vegetation cleared", pct(r.cleared)]);
+      rows.push(["Construction detected", r.started ? "Yes" : "No"]);
+    }
+    rows.push(["People within 5 km", fmt(r.pop_5km, 0)]);
+    return `<b class="t">${esc(name)}</b><span class="m">${esc([r.operator, r.country].filter(Boolean).join(" · "))}</span>` +
+      `<table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${esc(v)}</td></tr>`).join("")}</table>` +
+      `<a href="https://www.openstreetmap.org/${esc(r.osm)}" target="_blank" rel="noopener">View in OpenStreetMap</a>`;
+  }
+
+  fetch("data/sites.json").then(r => r.json()).then(d => {
+    const idx = Object.fromEntries(d.fields.map((f, i) => [f, i]));
+    const counts = [0, 0, 0, 0];
+    d.rows.forEach(row => {
+      const r = Object.fromEntries(d.fields.map(f => [f, row[idx[f]]]));
+      counts[r.status]++;
+      const m = L.circleMarker([r.lat, r.lon], {
+        radius: Math.max(2.5, Math.min(14, 2 + Math.sqrt(r.area_ha || 0) * 1.1)),
+        color: css.getPropertyValue("--surface").trim(), weight: 0.7, fillColor: color(r.status),
+        fillOpacity: r.status === 0 || r.status === 3 ? 0.55 : 0.9
+      }).bindPopup(() => popup(r), { maxWidth: 300 });
+      m._text = [r.name, r.operator, r.country].filter(Boolean).join(" ").toLowerCase();
+      m._s = r.status;
+      all.push(m);
+    });
+    document.querySelectorAll("[data-count]").forEach(el => el.textContent = "(" + counts[+el.dataset.count].toLocaleString("en") + ")");
+    // Draw grey first so the new and pipeline campuses sit on top.
+    [3, 0, 1, 2].forEach(s => layers[s].addTo(map));
+    refresh();
+  });
+
+  const search = document.querySelector(".search");
+  const boxes = [...document.querySelectorAll(".toggle input")];
+  function refresh() {
+    const on = new Set(boxes.filter(b => b.checked).map(b => +b.dataset.s));
+    const q = search.value.trim().toLowerCase();
+    layers.forEach(l => l.clearLayers());
+    all.forEach(m => { if (on.has(m._s) && (!q || m._text.includes(q))) layers[m._s].addLayer(m); });
+    if (footprints) footprints.setStyle(f => ({ opacity: on.has(f.properties.s) ? 1 : 0, fillOpacity: on.has(f.properties.s) ? 0.12 : 0 }));
+  }
+  boxes.forEach(b => b.addEventListener("change", refresh));
+  let t; search.addEventListener("input", () => { clearTimeout(t); t = setTimeout(refresh, 150); });
+
+  map.on("zoomend", () => {
+    if (map.getZoom() < 12) { if (footprints) map.removeLayer(footprints); return; }
+    if (footprints) { footprints.addTo(map); return; }
+    if (fpLoading) return;
+    fpLoading = true;
+    fetch("data/footprints.geojson").then(r => r.json()).then(gj => {
+      footprints = L.geoJSON(gj, {
+        interactive: false,
+        style: f => ({ color: color(f.properties.s), weight: 1.5, fillColor: color(f.properties.s), fillOpacity: 0.12 })
+      });
+      if (map.getZoom() >= 12) footprints.addTo(map);
+      refresh();
+    });
+  });
+})();
+</script>
+</body>
+</html>

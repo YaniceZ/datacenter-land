@@ -1,0 +1,11 @@
+{
+  "title": "Data center expansion has moved onto rural land: a global footprint analysis, 2017-2026 (code and campus dataset)",
+  "upload_type": "dataset",
+  "description": "<p>Code and campus-level dataset for a global analysis of the land taken by data center campuses. 2,378 campuses mapped in OpenStreetMap across 101 countries are read against Esri/Impact Observatory 10 m annual land cover (2017-2023), GHSL 2020 population and settlement data, and Sentinel-2 imagery from 2023 and 2026. The dataset gives, for each campus, its footprint, status (built before 2017, built 2018-2023, or unbuilt in 2023), annual built share, hectares converted from cropland, trees, rangeland and bare land, settlement type, residents within 5 km, and Sentinel-2 change measures. A preprint manuscript (not peer reviewed) is included in paper/manuscript.md.</p><p>Campus data are derived from OpenStreetMap and released under the Open Database License; code is MIT.</p>",
+  "creators": [{"name": "Zeng, Yanice"}],
+  "keywords": ["data centers", "land use", "land cover change", "urban planning", "OpenStreetMap", "Sentinel-2", "GHSL", "cropland", "remote sensing"],
+  "license": "odbl-1.0",
+  "related_identifiers": [
+    {"identifier": "https://yanicez.github.io/datacenter-land/", "relation": "isDocumentedBy", "resource_type": "other"}
+  ]
+}

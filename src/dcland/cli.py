@@ -98,8 +98,12 @@ def _summary(workers):
 
 
 def _map(workers):
-    from . import webmap
-    webmap.build(RESULTS / "datacenter_sites.geojson", DOCS / "map.html")
+    import json
+
+    from . import website
+    stats = json.loads((RESULTS / "stats.json").read_text())
+    threshold = next(r for r in stats["pipeline_thresholds"] if r["control_quantile"] == 0.9)["threshold"]
+    website.export(RESULTS, DOCS / "data", threshold)
 
 
 if __name__ == "__main__":
